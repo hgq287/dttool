@@ -11,8 +11,11 @@ authors = [
   {name = "Hg Q.", email = "hgq287@gmail.com"},
 ]
 
+[project.scripts]
+dttool = "dttool.main:main"
+
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["freqtrade*"]
+include = ["dttool*"]
 exclude = ["tests", "tests.*", "user_data", "user_data*"]
 namespaces = true
