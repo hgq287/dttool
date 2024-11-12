@@ -1,10 +1,10 @@
-# Flotool rules
+# Dttool rules
 config*.json
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
 logfile.txt
-user_data/*
+user_data/data*
 
 # Macos related
 .DS_Store
@@ -84,4 +84,4 @@ target/
 
 #exceptions
 !*.gitkeep
-!configs/config_floapi.example.json
+!configs/config_api.example.json
