@@ -3,7 +3,7 @@
 You will run flotool in separated `virtual environment`
 
 ```bash
-# create virtualenv in directory /freqtrade/.venv
+# create virtualenv in directory /dttool/.venv
 python3 -m venv .venv
 
 # run virtualenv
