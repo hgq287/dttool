@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools >= 64.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dttool"
+dynamic = ["version"]
+
+authors = [
+  {name = "Hg Q."},
+  {name = "Hg Q.", email = "hgq287@gmail.com"},
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["freqtrade*"]
+exclude = ["tests", "tests.*", "user_data", "user_data*"]
+namespaces = true
