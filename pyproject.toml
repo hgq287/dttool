@@ -11,6 +11,10 @@ authors = [
   {name = "Hg Q.", email = "hgq287@gmail.com"},
 ]
 
+description = "Dttool - The utility tool for developers"
+readme = "README.md"
+requires-python = ">=3.10"
+
 [project.scripts]
 dttool = "dttool.main:main"
 
