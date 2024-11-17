@@ -18,5 +18,5 @@ def main(sysargv: Optional[list[str]] = None) -> None:
   finally:
     sys.exit(return_code)
   
-#
-  #main()
+if __name__ == "__main__":  # pragma: no cover
+  main()
