@@ -21,15 +21,12 @@ def main(sysargv: Optional[list[str]] = None) -> None:
 
     # Call subcommand.
     if "func" in args:
-        logger.info(f"freqtrade {__version__}")
+        logger.info(f"dttool {__version__}")
         return_code = args["func"](args)
     else:
         # No subcommand was issued.
         raise OperationalException(
             "Usage of Dttool requires a subcommand to be specified.\n"
-            "To have the bot executing trades in live/dry-run modes, "
-            "depending on the value of the `dry_run` setting in the config, run Dttool "
-            "as `dttool start [options...]`.\n"
             "To see the full list of options available, please use "
             "`dttool --help` or `dttool <command> --help`."
         )
