@@ -16,8 +16,11 @@ logger = logging.getLogger("dttool")
 def main(sysargv: Optional[list[str]] = None) -> None:
   return_code: Any = 1
   try:
+    print("Dttool CLI")
     arguments = Arguments(sysargv)
     args = arguments.get_parsed_arg()
+
+    print("Parsed arguments:")
 
     # Call subcommand.
     if "func" in args:
@@ -31,6 +34,7 @@ def main(sysargv: Optional[list[str]] = None) -> None:
             "`dttool --help` or `dttool <command> --help`."
         )
   finally:
+    print("Exiting dttool")
     sys.exit(return_code)
   
 if __name__ == "__main__":  # pragma: no cover

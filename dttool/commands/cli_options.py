@@ -20,7 +20,32 @@ AVAILABLE_CLI_OPTIONS = {
   "version": Arg(
     "-V",
     "--version",
-    action="version",
-    version=f"%(prog)s {__version__}",
+    help="show program's version number and exit",
+    action="store_true",
+  ),
+  "version_main": Arg(
+    # Copy of version - used to have -V available with and without subcommand.
+    "-V",
+    "--version",
+    help="show program's version number and exit",
+    action="store_true",
+  ),
+  "reset": Arg(
+      "--reset",
+      help="Reset sample files to their original state.",
+      action="store_true",
+  ),
+  "print_json": Arg(
+      "--print-json",
+      help="Print output in JSON format.",
+      action="store_true",
+      default=False,
+  ),
+  "export_csv": Arg(
+      "--export-csv",
+      help="Export to CSV-File."
+      " This will disable table print."
+      " Example: --export-csv hyperopt.csv",
+      metavar="FILE",
   ),
 }

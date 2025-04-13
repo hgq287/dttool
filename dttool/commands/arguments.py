@@ -13,6 +13,8 @@ NO_CONF_REQURIED = [
 
 NO_CONF_ALLOWED = []
 
+ARGS_WEBSERVER: list[str] = []
+
 class Arguments:
   """
   Arguments Class. Manage the arguments received by the cli
@@ -40,6 +42,7 @@ class Arguments:
       self, optionlist: list[str], parser: Union[ArgumentParser, _ArgumentGroup]
   ) -> None:
     for val in optionlist:
+      print(f"Adding22 argument {val}")
       opt = AVAILABLE_CLI_OPTIONS[val]
       parser.add_argument(*opt.cli, dest=val, **opt.kwargs)
 
@@ -55,6 +58,26 @@ class Arguments:
 
     # Build main command
     self.parser = ArgumentParser(
-        prog="dttool", description="A useful tool for software developers"
+      prog="dttool", description="A toolkit for developers.",
     )
-    self._build_args(optionlist=["version"], parser=self.parser)
+
+    self._build_args(optionlist=["version_main"], parser=self.parser)
+
+    from dttool.commands import (
+      start_webserver
+    )
+
+    subparsers = self.parser.add_subparsers(
+      dest="command",
+      # Use custom message when no subhandler is added
+      # shown from `main.py`
+      # required=True
+    )
+
+    # Add webserver subcommand
+    webserver_cmd = subparsers.add_parser(
+      "webserver", help="Webserver module.", parents=[_common_parser]
+    )
+
+    webserver_cmd.set_defaults(func=start_webserver)
+    self._build_args(optionlist=ARGS_WEBSERVER, parser=webserver_cmd)
