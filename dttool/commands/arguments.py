@@ -8,7 +8,7 @@ from dttool.constants import DEFAULT_CONFIG
 
 ARGS_COMMON = ["logfile", "version"]
 
-NO_CONF_REQURIED = [
+NO_CONF_REQUIRED = [
 ]
 
 NO_CONF_ALLOWED = []
@@ -27,7 +27,7 @@ class Arguments:
   def get_parsed_arg(self) -> dict[str, Any]:
     if self._parsed_arg is None:
       self._build_subcommands()
-      self._parse_args = self._parse_args()
+      self._parsed_arg = self._parse_args()
 
     return vars(self._parsed_arg)
 
@@ -42,7 +42,6 @@ class Arguments:
       self, optionlist: list[str], parser: Union[ArgumentParser, _ArgumentGroup]
   ) -> None:
     for val in optionlist:
-      print(f"Adding22 argument {val}")
       opt = AVAILABLE_CLI_OPTIONS[val]
       parser.add_argument(*opt.cli, dest=val, **opt.kwargs)
 

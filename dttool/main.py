@@ -20,8 +20,6 @@ def main(sysargv: Optional[list[str]] = None) -> None:
     arguments = Arguments(sysargv)
     args = arguments.get_parsed_arg()
 
-    print("Parsed arguments:")
-
     # Call subcommand.
     if "func" in args:
         logger.info(f"dttool {__version__}")
