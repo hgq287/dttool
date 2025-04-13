@@ -10,4 +10,4 @@ def start_webserver(args: dict[str, Any]) -> None:
   from dttool.rpc.api_server.webserver import ApiServer
 
   # Initialize the web server
-  ApiServer(host='127.0.0.1', port=8080)
+  ApiServer(host='127.0.0.1', port=4096)
