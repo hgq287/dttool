@@ -1,3 +1,13 @@
 requests==2.32.3
 SQLAlchemy==2.0.36
+
+# Properly format api responses
+orjson==3.10.15
+
+# API Server
+fastapi==0.115.8
+pydantic==2.10.6
 uvicorn==0.34.0
+pyjwt==2.10.1
+aiofiles==24.1.0
+psutil==7.0.0
