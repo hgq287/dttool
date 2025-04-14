@@ -4,9 +4,11 @@ from typing import Any
 import orjson
 import uvicorn
 from fastapi import Depends, FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from starlette.responses import JSONResponse 
 
+from dttool.constants import Config
 
 class FTJSONResponse(JSONResponse):
   media_type = "application/json"
@@ -25,16 +27,24 @@ class ApiServer:
   A class to represent an API web server.
   """
 
-  def __init__(self, host: str, port: int) -> None:
+  __instance = None
+  __initialized = False
+  _config: Config = {}
+
+  def __init__(self, config: Config, standalone: bool = False) -> None:
     """
     Initialize the ApiServer instance.
 
     :param host: The host of the web server.
     :param port: The port of the web server.
     """
-    self.host = host
-    self.port = port
-    print(f"ApiServer initialized at {self.host}:{self.port}")
+    ApiServer._config = config
+    if self.__initialized and (standalone or self._standalone):
+      return
+    self._standalone: bool = standalone
+    self._server = None
+
+    ApiServer.__initialized = True
 
     self.app = FastAPI(
       title="Dttool API",
@@ -43,18 +53,21 @@ class ApiServer:
       default_response_class=FTJSONResponse,
     )
 
+    self.configure_app(self.app, self._config)
+
     self.start_api()
 
   def start_api(self):
     """
     Start the API server.
     """
-    print(f"Starting API server at {self.host}:{self.port}")
+    rest_ip = self._config["api_server"]["listen_ip_address"]
+    rest_port = self._config["api_server"]["listen_port"]
     
     uvconfig = uvicorn.Config(
       self.app,
-      port=4096,
-      host='127.0.0.1',
+      port=rest_port,
+      host=rest_ip,
       use_colors=False,
       log_config=None,
     )
@@ -67,3 +80,22 @@ class ApiServer:
       raise
     finally:
       logging.info("Server stopped")
+
+  def configure_app(self, app: FastAPI, config):
+    """
+    Configure the FastAPI application with the given configuration.
+
+    :param app: The FastAPI application instance.
+    :param config: The configuration to apply.
+    """
+    from dttool.rpc.api_server.api_v1 import router_public as api_v1_public
+
+    app.include_router(api_v1_public, prefix="/api/v1")
+
+    app.add_middleware(
+      CORSMiddleware,
+      allow_origins=config["api_server"].get("CORS_origins", []),
+      allow_credentials=True,
+      allow_methods=["*"],
+      allow_headers=["*"],
+    )

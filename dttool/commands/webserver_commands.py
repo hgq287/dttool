@@ -10,4 +10,14 @@ def start_webserver(args: dict[str, Any]) -> None:
   from dttool.rpc.api_server.webserver import ApiServer
 
   # Initialize the web server
-  ApiServer(host='127.0.0.1', port=4096)
+  config = {            
+    "api_server": {
+      "enabled": True,
+      "listen_ip_address": "127.0.0.1",
+      "listen_port": 4096,
+      "CORS_origins": ["http://localhost"],
+      "username": "",
+      "password": "",
+    }
+  }
+  ApiServer(config, standalone=True)
