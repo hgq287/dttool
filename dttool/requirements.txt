@@ -11,3 +11,8 @@ uvicorn==0.34.0
 pyjwt==2.10.1
 aiofiles==24.1.0
 psutil==7.0.0
+
+# Files
+pandas==2.2.3
+openpyxl==3.1.2
+pyarrow==20.0.0

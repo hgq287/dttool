@@ -1,2 +1,3 @@
 from dttool.commands.arguments import Arguments
 from dttool.commands.webserver_commands import start_webserver
+from dttool.commands.file_converter_commands import convert_file
