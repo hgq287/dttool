@@ -6,7 +6,10 @@ from typing import Any, Optional, Union
 from dttool.commands.cli_options import AVAILABLE_CLI_OPTIONS
 from dttool.constants import DEFAULT_CONFIG
 
-ARGS_COMMON = ["logfile", "version"]
+ARGS_COMMON = [
+    "logfile", 
+    "version"
+    ]
 
 NO_CONF_REQUIRED = [
 ]
@@ -14,6 +17,10 @@ NO_CONF_REQUIRED = [
 NO_CONF_ALLOWED = []
 
 ARGS_WEBSERVER: list[str] = []
+
+ARGS_FILES_CONVERTER: list[str] = [
+    "convert_to_csv",
+]
 
 class Arguments:
     """
@@ -85,10 +92,10 @@ class Arguments:
         # Add file converter subcommand
 
         file_converter_cmd = subparsers.add_parser(
-            "file_converter", help="File converter module.", parents=[_common_parser]
+            "file-converter", help="File converter module.", parents=[_common_parser]
         )
         file_converter_cmd.set_defaults(func=convert_file)
 
         self._build_args(
-            optionlist=["from", "from", "source", "destination"], parser=file_converter_cmd
+            optionlist=ARGS_FILES_CONVERTER, parser=file_converter_cmd
         )
