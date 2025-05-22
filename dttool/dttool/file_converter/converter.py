@@ -12,12 +12,11 @@ class Converter:
         self._config = config
 
         basedir = Path(config["file_converter_dir"])
-        source_filename = config["source_filename"]
-        destination_filename = config["destination_filename"]
+        input_file = config["input_filename"]
+        output_file = config["output_filename"]
 
-        self.input_path = basedir / "input" / source_filename
-        self.output_path = basedir / "output" / destination_filename
-        self.index = config.get("index", False)
+        self.input_path = basedir / "input" / input_file
+        self.output_path = basedir / "output" / output_file
 
     def feather_to_excel(self):
         df = pd.read_feather(self.input_path)

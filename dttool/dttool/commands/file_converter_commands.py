@@ -10,17 +10,23 @@ def convert_file(args: dict[str, Any]) -> None:
     :return: The return code of the command.
     """
 
+    convert_arg = args["convert_to_csv"].split(" ")
     config: Config = {
         "file_converter_dir": "user_data/data/file_converter", 
-        "source_filename": args["source"],  
-        "destination_filename": args["destination"],
-        "index": args.get("index", False),
+        "input_filename": convert_arg[0],  
+        "output_filename": convert_arg[1],
+        "include_index": args.get("index", False),
     }
 
-    print(f"Converting {args['source']} to {args['destination']}...")
+
+    print(f"Input file: {config['input_filename']}")
+    print(f"Output file: {config['output_filename']}")
 
     converter = Converter(config)
-    operation = f"{args.from_format}_to_{args.to_format}"
+    input_ext = config['input_filename'].split('.')[-1].lower()
+    output_ext = config['output_filename'].split('.')[-1].lower()
+
+    operation = f"{input_ext}_to_{output_ext}"
     match operation:
         case "feather_to_excel":
             converter.feather_to_excel()
